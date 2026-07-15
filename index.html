@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>~/portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     EDIT ME: content lives in the DATA object near the top of
+     the <script> at the bottom of this file. Everything below
+     is just styling — you shouldn't need to touch it to update
+     your projects, skills, experience, or bio.
+     ============================================================ */
+
+  :root{
+    --bg: #12140f;
+    --bg-raised: #1c1f17;
+    --bg-input: #171a12;
+    --border: #3a3d2f;
+    --fg: #eae3d3;
+    --fg-dim: #b8ab8c;
+    --fg-dimmer: #726b54;
+    --green: #a8c3a0;
+    --green-soft: rgba(168,195,160,0.14);
+    --amber: #d9c9a3;
+    --amber-soft: rgba(217,201,163,0.12);
+    --red: #e0b3a0;
+    --yellow: #e8d9a8;
+    --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --maxw: 880px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior: auto; } }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    background-image:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(168,195,160,0.07), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 20%, rgba(217,201,163,0.06), transparent 60%);
+    color: var(--fg);
+    font-family: var(--mono);
+    font-size: 15px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection{ background: var(--green); color: #171a12; }
+
+  a{ color: var(--green); text-decoration: none; border-bottom: 1px dashed var(--fg-dimmer); }
+  a:hover{ border-bottom-color: var(--green); }
+
+  ::-webkit-scrollbar{ width: 10px; }
+  ::-webkit-scrollbar-track{ background: var(--bg); }
+  ::-webkit-scrollbar-thumb{ background: var(--border); border-radius: 6px; }
+
+  /* ---------- top chrome ---------- */
+  .titlebar{
+    position: sticky; top:0; z-index: 50;
+    background: rgba(11,15,14,0.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .titlebar-inner{
+    max-width: var(--maxw); margin: 0 auto;
+    display:flex; align-items:center; gap:10px;
+    padding: 10px 20px;
+  }
+  .dots{ display:flex; gap:7px; flex-shrink:0; }
+  .dot{ width:11px; height:11px; border-radius:50%; }
+  .dot.red{ background:#e0b3a0; }
+  .dot.yellow{ background:#e8d9a8; }
+  .dot.green{ background:#a8c3a0; }
+  .titlebar-name{ color: var(--fg-dim); font-size: 13px; flex:1; text-align:center; }
+  .titlebar-nav{ display:flex; gap:14px; font-size: 12.5px; flex-shrink:0; }
+  .titlebar-nav a{ color: var(--fg-dim); border:none; white-space:nowrap; }
+  .titlebar-nav a:hover{ color: var(--green); }
+  .titlebar-nav .num{ color: var(--fg-dimmer); }
+  @media (max-width: 720px){
+    .titlebar-nav{ display:none; }
+  }
+
+  /* ---------- shell / page container ---------- */
+  .shell{ max-width: var(--maxw); margin: 0 auto; padding: 0 20px 100px; }
+
+  .line{ display:flex; gap:10px; align-items:baseline; flex-wrap: wrap; }
+  .prompt{ color: var(--green); flex-shrink:0; user-select:none; }
+  .prompt .path{ color: var(--amber); }
+  .cmd{ color: var(--fg); }
+  .out{ color: var(--fg-dim); margin: 4px 0 0 0; }
+
+  .comment{ color: var(--amber); font-style: italic; opacity: 0.92; }
+  .comment::before{ content: '♡ '; opacity: 0.8; }
+
+  section{ padding: 56px 0; border-bottom: 1px dashed var(--border); }
+  section:last-of-type{ border-bottom:none; }
+  section .sec-tag{
+    display:inline-block; font-size:11.5px; color: var(--fg-dimmer);
+    letter-spacing: 0.06em; margin-bottom: 18px;
+  }
+
+  h1,h2,h3{ font-family: var(--mono); font-weight:700; margin:0; }
+
+  /* ---------- hero ---------- */
+  .hero{ padding-top: 48px; padding-bottom: 40px; border-bottom: 1px dashed var(--border); }
+  .boot{ color: var(--fg-dimmer); font-size: 13px; white-space: pre-wrap; min-height: 1.6em; }
+  .boot .ok{ color: var(--green); }
+  .hero-name{
+    font-size: clamp(28px, 5vw, 44px);
+    margin-top: 18px;
+    color: var(--fg);
+  }
+  .hero-name .caret{
+    display:inline-block; width: 0.5em; height: 1em; background: var(--green);
+    vertical-align: -0.12em; margin-left: 4px;
+    animation: blink 1s steps(1) infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+  .hero-tagline{ margin-top: 10px; color: var(--fg-dim); font-size: 16px; max-width: 60ch; }
+  .hero-links{ margin-top: 22px; display:flex; gap: 18px; flex-wrap: wrap; font-size: 13.5px; }
+  .hero-links a{ color: var(--fg); border-bottom: 1px solid var(--border); }
+  .hero-links a:hover{ color: var(--green); border-bottom-color: var(--green); }
+  .hero-links .tag{ color: var(--fg-dimmer); margin-right: 3px; }
+
+  /* ---------- console input ---------- */
+  .console{
+    margin: 34px 0 0;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+  }
+  .console-row{ display:flex; align-items:center; gap:8px; }
+  .console-row .prompt{ font-size: 14px; }
+  .console-row input{
+    flex:1; background: transparent; border:none; outline:none;
+    color: var(--fg); font-family: var(--mono); font-size: 14px;
+    caret-color: var(--green);
+  }
+  .console-row input::placeholder{ color: var(--fg-dimmer); }
+  .console-hint{ margin-top: 6px; font-size: 11.5px; color: var(--fg-dimmer); }
+  .console-out{ margin-top: 10px; font-size: 13px; color: var(--fg-dim); display:none; }
+  .console-out.show{ display:block; }
+  .console-out .row{ margin-bottom: 2px; }
+
+  /* ---------- projects ---------- */
+  .proj-list-head{ color: var(--fg-dimmer); font-size: 12.5px; margin-bottom: 6px; }
+  .proj{
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 14px;
+    background: var(--bg-raised);
+    overflow: hidden;
+  }
+  .proj-head{
+    display:flex; align-items:center; gap:12px;
+    padding: 14px 16px; cursor: pointer;
+    user-select:none;
+  }
+  .proj-head:hover{ background: var(--green-soft); }
+  .proj-perm{ color: var(--fg-dimmer); font-size: 12.5px; flex-shrink:0; display:none; }
+  @media (min-width: 620px){ .proj-perm{ display:inline; } }
+  .proj-name{ color: var(--green); font-weight: 600; flex-shrink:0; }
+  .proj-desc{ color: var(--fg-dim); font-size: 13.5px; flex:1; min-width: 140px; }
+  .proj-chevron{ color: var(--fg-dimmer); transition: transform 0.15s ease; flex-shrink:0; }
+  .proj.open .proj-chevron{ transform: rotate(90deg); color: var(--green); }
+  .proj-body{ max-height:0; overflow:hidden; transition: max-height 0.25s ease; }
+  .proj.open .proj-body{ max-height: 480px; }
+  .proj-body-inner{ padding: 4px 16px 20px 16px; border-top: 1px dashed var(--border); }
+  .proj-stack{ display:flex; flex-wrap:wrap; gap: 8px; margin: 12px 0 12px; }
+  .proj-stack span{
+    font-size: 11.5px; color: var(--fg-dim);
+    border: 1px solid var(--border); border-radius: 4px;
+    padding: 2px 8px;
+  }
+  .proj-links{ font-size: 13px; display:flex; gap:16px; margin-top: 10px; flex-wrap: wrap; }
+  .proj-soon{ color: var(--fg-dimmer); font-size: 13px; }
+  .proj-comment{ margin-top: 12px; }
+
+  /* ---------- skills ---------- */
+  .skills-json{ font-size: 13.5px; }
+  .skills-json .key{ color: var(--fg-dim); }
+  .skills-json .str{ color: var(--fg); }
+  .skills-json .brace{ color: var(--fg-dimmer); }
+  .skills-json .indent{ padding-left: 22px; display:block; }
+  .skills-group{ margin: 2px 0 10px; }
+
+  /* ---------- experience ---------- */
+  .exp-item{ display:flex; gap: 16px; padding: 14px 0; border-bottom: 1px dashed var(--border); }
+  .exp-item:last-child{ border-bottom:none; }
+  .exp-date{ color: var(--fg-dimmer); font-size: 12.5px; flex-shrink:0; width: 92px; padding-top: 3px; }
+  .exp-main .role{ color: var(--fg); font-weight:600; }
+  .exp-main .org{ color: var(--green); }
+  .exp-main .desc{ color: var(--fg-dim); font-size: 13.5px; margin-top: 4px; }
+
+  /* ---------- about ---------- */
+  .about-text{ max-width: 68ch; color: var(--fg-dim); font-size: 14.5px; }
+  .about-text p{ margin: 0 0 14px; }
+
+  /* ---------- contact ---------- */
+  .contact-row{ display:flex; gap: 10px; font-size: 14px; margin-bottom: 8px; }
+  .contact-row .k{ color: var(--fg-dimmer); width: 90px; flex-shrink:0; }
+
+  footer{ padding: 30px 0 10px; color: var(--fg-dimmer); font-size: 12px; text-align:center; }
+</style>
+</head>
+<body>
+
+<div class="titlebar">
+  <div class="titlebar-inner">
+    <div class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+    <div class="titlebar-name" id="titlebarName">guest@portfolio: ~</div>
+    <nav class="titlebar-nav">
+      <a href="#projects"><span class="num">1</span> projects</a>
+      <a href="#skills"><span class="num">2</span> skills</a>
+      <a href="#experience"><span class="num">3</span> experience</a>
+      <a href="#about"><span class="num">4</span> about</a>
+      <a href="#contact"><span class="num">5</span> contact</a>
+    </nav>
+  </div>
+</div>
+
+<div class="shell">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="boot" id="bootText"></div>
+    <h1 class="hero-name" id="heroName"></h1>
+    <div class="hero-tagline" id="heroTagline"></div>
+    <div class="hero-links" id="heroLinks"></div>
+
+    <div class="console">
+      <div class="console-row">
+        <span class="prompt"><span class="path">~</span>$</span>
+        <input id="cmdInput" type="text" placeholder="say something… try 'help'" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="console-hint">try: projects · skills · experience · about · contact · hi · hire me</div>
+      <div class="console-out" id="cmdOut"></div>
+    </div>
+  </section>
+
+  <!-- ================= PROJECTS ================= -->
+  <section id="projects">
+    <div class="line"><span class="prompt"><span class="path">~</span>$</span><span class="cmd">open projects/</span></div>
+    <p class="out proj-list-head" id="projCount"></p>
+    <div id="projList"></div>
+  </section>
+
+  <!-- ================= SKILLS ================= -->
+  <section id="skills">
+    <div class="line"><span class="prompt"><span class="path">~/projects</span>$</span><span class="cmd">open skills.json</span></div>
+    <div class="skills-json" id="skillsJson" style="margin-top:14px;"></div>
+  </section>
+
+  <!-- ================= EXPERIENCE ================= -->
+  <section id="experience">
+    <div class="line"><span class="prompt"><span class="path">~</span>$</span><span class="cmd">look back on experience/</span></div>
+    <div id="expList" style="margin-top:14px;"></div>
+  </section>
+
+  <!-- ================= ABOUT ================= -->
+  <section id="about">
+    <div class="line"><span class="prompt"><span class="path">~</span>$</span><span class="cmd">cat about.txt</span></div>
+    <div class="about-text" id="aboutText" style="margin-top:14px;"></div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section id="contact" style="border-bottom:none;">
+    <div class="line"><span class="prompt"><span class="path">~</span>$</span><span class="cmd">mail -s "let's talk"</span></div>
+    <div id="contactList" style="margin-top:14px;"></div>
+  </section>
+
+  <footer id="footerText"></footer>
+</div>
+
+<script>
+/* ================================================================
+   EDIT ME — this is the only part of the file you should need to
+   touch. Replace the placeholder strings below with your real
+   info. Everything renders itself from this object.
+
+   - `comment` fields are optional. They render as italic amber
+     "// ..." lines — a nice place for the PPE-flavored angle on a
+     technical project (ethics, policy, market design, etc).
+   - Leave any field as "" to hide it.
+================================================================ */
+const DATA = {
+  name: "Riya Piryani",
+  handle: "riya",
+  tagline: "CS + Politics, Philosophy &amp; Economics, business minor — I test software, teach discrete math, and still have opinions about housing policy.",
+  location: "Boston, MA",
+
+  links: [
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/riya-piryani/" },
+    { label: "Email", href: "mailto:riyapiryani@gmail.com" }
+  ],
+
+  projects: [
+    {
+      name: "flock",
+      perm: "✦",
+      desc: "A native iOS app that solves \"where are we even going\" for friend group trips.",
+      stack: ["Swift", "SwiftUI", "Node.js"],
+      body: "Built from scratch to help friend groups actually agree on a trip — coordinating destinations, availability, and activities in one place. Custom UI throughout: animated vote cards, an interactive availability grid that auto-detects the best overlap window, and a multi-step trip creation and invite flow. Replaced the native iOS tab bar with a custom animated pill-style nav bar using GeometryReader and spring physics, with haptic feedback woven in for a polished, native feel.",
+      comment: "turns out planning a group trip is a decentralized decision problem wearing a friendly UI.",
+      link: "",
+      linkLabel: "",
+      repo: "soon",
+      repoLabel: "source"
+    },
+    {
+      name: "fair-housing",
+      perm: "✦",
+      desc: "Research paper analyzing housing market disparities across Toronto, Hong Kong, and Singapore.",
+      stack: ["Python", "Pandas", "NumPy", "scikit-learn"],
+      body: "Co-authored for the Big Data Challenge — investigated the economic and policy factors behind homeownership rates and affordability gaps across three global cities, using Python to identify key market trends. The findings feed into broader conversations about affordable housing and equitable urban development.",
+      comment: "data can describe an inequity clearly. closing it is still a policy fight.",
+      link: "https://journal.stemfellowship.org/doi/pdf/10.17975/sfj-2023-002?download=true",
+      linkLabel: "read paper (p. 45)",
+      repo: "",
+      repoLabel: ""
+    },
+    {
+      name: "accessible-locator",
+      perm: "✦",
+      desc: "An app to help people with disabilities find accessible locations.",
+      stack: ["Figma", "HTML", "CSS", "JavaScript", "Java"],
+      body: "Designed an intuitive interface in Figma with accessibility as the starting point, not an add-on. Built the front end with HTML, CSS, and JavaScript, and a Java back end to manage location data reliably. Integrated screen-reader compatibility and clear, predictable navigation throughout.",
+      comment: "accessibility work keeps asking the question good design likes to skip: whose needs counted as \"standard\" by default?",
+      link: "https://www.figma.com/proto/GU0814HMLUl31L4XJIZCQS/Riya-Piryani---TU20?node-id=0-1&t=d4NkGCe0eSoLxyay-1",
+      linkLabel: "prototype",
+      repo: "",
+      repoLabel: ""
+    }
+  ],
+
+  skills: {
+    languages: ["Java", "Python", "C++", "R", "SQL", "Racket", "JavaScript", "HTML/CSS"],
+    frameworks_tools: ["SwiftUI", "Node.js", "Figma", "Adobe", "MS Office", "Canva"],
+    ppe_lenses: ["Public policy", "Political theory", "Microeconomics"],
+    business: ["Content design", "Writing", "Communication", "Teamwork", "Attention to detail"]
+  },
+
+  experience: [
+    { date: "2026 · Jan–Jun", role: "Software QA Engineer Co-op", org: "Notability", desc: "Diagnosed software defects, built automated UI and end-to-end tests, and streamlined regression testing across releases." },
+    { date: "2025 · Aug–Dec", role: "Teaching Assistant, Discrete Structures", org: "Northeastern University", desc: "Ran weekly office hours and recitations for 100+ students; graded homework, quizzes, and exams." },
+    { date: "2024–25 · Sept–Dec", role: "Accessibility Note Taker", org: "Northeastern University", desc: "Produced accessible lecture notes for Algorithms & Data and American Government, for students with academic accommodations." },
+    { date: "2024–25 · Sept–Dec", role: "Aquatics Instructor & Guard", org: "YMCA", desc: "Taught all swim program levels and kept the pool deck safe for everyone in it." },
+    { date: "2022–24", role: "Programming Captain", org: "FIRST Robotics", desc: "Led software for the team's robotics control systems in Java and mentored junior programmers." }
+  ],
+
+  about: [
+    "I'm a CS + Politics, Philosophy, and Economics major at Northeastern University (class of 2027), with a minor in Business Administration — currently on the Dean's List.",
+    "On the CS side: I like the parts of software that are invisible when done right — testing, accessibility, interfaces that feel obvious. Most recently I was a QA Engineer Co-op at Notability, hunting down bugs before anyone else could.",
+    "On the PPE side: my housing-policy research comparing Toronto, Hong Kong, and Singapore is the clearest example — I like questions about who a system leaves out, and why.",
+    "Outside of that: I teach discrete math, take notes for students who need them, coach robotics kids through their first lines of Java, and spend a lot of summers as a swim instructor and lifeguard."
+  ],
+
+  contact: [
+    { label: "email", value: "riyapiryani@gmail.com", href: "mailto:riyapiryani@gmail.com" },
+    { label: "linkedin", value: "linkedin.com/in/riya-piryani", href: "https://www.linkedin.com/in/riya-piryani/" }
+  ],
+
+  footer: "built with a terminal, not a template — last updated 2026"
+};
+
+/* ================================================================
+   Rendering — you shouldn't need to edit below this line.
+================================================================ */
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function el(html){
+  const t = document.createElement('template');
+  t.innerHTML = html.trim();
+  return t.content.firstElementChild;
+}
+
+// ---- titlebar ----
+document.getElementById('titlebarName').textContent = `guest@${DATA.handle}: ~`;
+
+// ---- hero ----
+document.getElementById('heroTagline').textContent = DATA.tagline;
+const linksHost = document.getElementById('heroLinks');
+DATA.links.forEach(l => {
+  if(!l.href) return;
+  linksHost.appendChild(el(`<a href="${l.href}" target="_blank" rel="noopener"><span class="tag">${l.label}:</span>${l.label==='Email' ? l.href.replace('mailto:','') : l.label.toLowerCase()}</a>`));
+});
+
+// hero name typing
+const heroNameEl = document.getElementById('heroName');
+function renderHeroName(withCaret){
+  heroNameEl.innerHTML = DATA.name + (withCaret ? '<span class="caret"></span>' : '');
+}
+
+// boot sequence
+const bootLines = [
+  `waking up my little corner of the internet…`,
+  `packing: code, ideas, a little bit of sparkle … ready`,
+  `$ hi, it's`
+];
+const bootEl = document.getElementById('bootText');
+
+function typeLine(target, text, speed, cb){
+  if(reduceMotion){ target.textContent += text + "\n"; cb && cb(); return; }
+  let i = 0;
+  const step = () => {
+    target.textContent += text[i];
+    i++;
+    if(i < text.length){ setTimeout(step, speed); }
+    else { target.textContent += "\n"; cb && cb(); }
+  };
+  step();
+}
+
+function runBoot(){
+  if(reduceMotion){
+    bootEl.textContent = bootLines.join('\n');
+    renderHeroName(false);
+    return;
+  }
+  let idx = 0;
+  function next(){
+    if(idx >= bootLines.length){
+      renderHeroName(true);
+      return;
+    }
+    typeLine(bootEl, bootLines[idx], 14, () => { idx++; setTimeout(next, 120); });
+  }
+  next();
+}
+runBoot();
+
+// ---- projects ----
+document.getElementById('projCount').textContent = `${DATA.projects.length} things I've made`;
+const projList = document.getElementById('projList');
+DATA.projects.forEach((p, i) => {
+  const card = el(`
+    <div class="proj" id="proj-${i}">
+      <div class="proj-head">
+        <span class="proj-perm">${p.perm}</span>
+        <span class="proj-name">${p.name}/</span>
+        <span class="proj-desc">${p.desc}</span>
+        <span class="proj-chevron">›</span>
+      </div>
+      <div class="proj-body">
+        <div class="proj-body-inner">
+          <div class="out">${p.body}</div>
+          <div class="proj-stack">${p.stack.map(s => `<span>${s}</span>`).join('')}</div>
+          ${p.comment ? `<div class="comment proj-comment">${p.comment}</div>` : ''}
+          <div class="proj-links">
+            ${p.link ? `<a href="${p.link}" target="_blank" rel="noopener">→ ${p.linkLabel || 'live'}</a>` : ''}
+            ${p.repo === 'soon' ? `<span class="proj-soon">${p.repoLabel || 'source'}: coming soon</span>` : (p.repo ? `<a href="${p.repo}" target="_blank" rel="noopener">→ ${p.repoLabel || 'source'}</a>` : '')}
+          </div>
+        </div>
+      </div>
+    </div>
+  `);
+  card.querySelector('.proj-head').addEventListener('click', () => card.classList.toggle('open'));
+  projList.appendChild(card);
+});
+// open first project by default
+projList.firstElementChild && projList.firstElementChild.classList.add('open');
+
+// ---- skills ----
+const sj = document.getElementById('skillsJson');
+function jsonGroup(key, arr){
+  const items = arr.map(it => `"${it}"`).join(', ');
+  return `<div class="skills-group"><span class="key">"${key}"</span><span class="brace">: [</span><span class="indent str">${items}</span><span class="brace">]</span></div>`;
+}
+sj.innerHTML = `
+  <span class="brace">{</span>
+  ${jsonGroup('languages', DATA.skills.languages)}
+  ${jsonGroup('frameworks_tools', DATA.skills.frameworks_tools)}
+  ${jsonGroup('ppe_lenses', DATA.skills.ppe_lenses)}
+  ${jsonGroup('business', DATA.skills.business)}
+  <span class="brace">}</span>
+`;
+
+// ---- experience ----
+const expList = document.getElementById('expList');
+DATA.experience.forEach(x => {
+  expList.appendChild(el(`
+    <div class="exp-item">
+      <div class="exp-date">${x.date}</div>
+      <div class="exp-main">
+        <div class="role">${x.role} <span class="org">@ ${x.org}</span></div>
+        <div class="desc">${x.desc}</div>
+      </div>
+    </div>
+  `));
+});
+
+// ---- about ----
+const aboutEl = document.getElementById('aboutText');
+DATA.about.forEach(p => aboutEl.appendChild(el(`<p>${p}</p>`)));
+
+// ---- contact ----
+const contactEl = document.getElementById('contactList');
+DATA.contact.forEach(c => {
+  contactEl.appendChild(el(`
+    <div class="contact-row"><span class="k">${c.label}</span><a href="${c.href}" target="_blank" rel="noopener">${c.value}</a></div>
+  `));
+});
+
+// ---- footer ----
+document.getElementById('footerText').textContent = DATA.footer;
+
+// ---- interactive command line ----
+const cmdInput = document.getElementById('cmdInput');
+const cmdOut = document.getElementById('cmdOut');
+
+function printOut(lines){
+  cmdOut.innerHTML = lines.map(l => `<div class="row">${l}</div>`).join('');
+  cmdOut.classList.add('show');
+}
+
+const routes = {
+  projects: '#projects', project: '#projects', proj: '#projects', ls: '#projects',
+  skills: '#skills', skill: '#skills',
+  experience: '#experience', exp: '#experience', history: '#experience',
+  about: '#about', bio: '#about',
+  contact: '#contact', mail: '#contact'
+};
+
+function handleCommand(raw){
+  const cmd = raw.trim();
+  const lower = cmd.toLowerCase();
+  if(!cmd) return;
+
+  if(lower === 'help'){
+    printOut([
+      "here's what you can try:",
+      '&nbsp;&nbsp;projects · skills · experience · about · contact',
+      '&nbsp;&nbsp;hi · clear · hire me'
+    ]);
+    return;
+  }
+  if(lower === 'clear'){
+    cmdOut.classList.remove('show'); cmdOut.innerHTML=''; return;
+  }
+  if(lower === 'hi' || lower === 'whoami' || lower === 'hello'){
+    printOut([`hi, I'm ${DATA.handle} — CS + PPE, business minor. probably somewhere between a codebase and a philosophy reading.`]);
+    return;
+  }
+  if(lower === 'hire me' || lower === 'sudo hire me'){
+    printOut(['on it ✨', 'sending you over to say hello…']);
+    setTimeout(() => { window.location.hash = '#contact'; }, 500);
+    return;
+  }
+  if(lower.startsWith('cat ')){
+    const target = lower.replace('cat ', '').trim();
+    if(target.includes('about')){ printOut(['opening about.txt…']); window.location.hash = '#about'; return; }
+    if(target.includes('skill')){ printOut(['opening skills.json…']); window.location.hash = '#skills'; return; }
+  }
+  if(routes[lower]){
+    printOut([`heading to ${lower}…`]);
+    window.location.hash = routes[lower];
+    return;
+  }
+  printOut([`hmm, I don't know '${cmd}' yet`, `try 'help' to see what I do know`]);
+}
+
+cmdInput.addEventListener('keydown', (e) => {
+  if(e.key === 'Enter'){
+    handleCommand(cmdInput.value);
+    cmdInput.value = '';
+  }
+});
+</script>
+</body>
+</html>

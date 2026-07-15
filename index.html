@@ -8,6 +8,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 <style>
+  /* ============================================================
+     EDIT ME: content lives in the DATA object near the top of
+     the <script> at the bottom of this file. Everything below
+     is just styling — you shouldn't need to touch it to update
+     your projects, skills, experience, or bio.
+     ============================================================ */
 
   :root{
     --bg: #12140f;
@@ -192,10 +198,6 @@
   .exp-main .org{ color: var(--green); }
   .exp-main .desc{ color: var(--fg-dim); font-size: 13.5px; margin-top: 4px; }
 
-  /* ---------- about ---------- */
-  .about-text{ max-width: 68ch; color: var(--fg-dim); font-size: 14.5px; }
-  .about-text p{ margin: 0 0 14px; }
-
   /* ---------- contact ---------- */
   .contact-row{ display:flex; gap: 10px; font-size: 14px; margin-bottom: 8px; }
   .contact-row .k{ color: var(--fg-dimmer); width: 90px; flex-shrink:0; }
@@ -213,8 +215,7 @@
       <a href="#projects"><span class="num">1</span> projects</a>
       <a href="#skills"><span class="num">2</span> skills</a>
       <a href="#experience"><span class="num">3</span> experience</a>
-      <a href="#about"><span class="num">4</span> about</a>
-      <a href="#contact"><span class="num">5</span> contact</a>
+      <a href="#contact"><span class="num">4</span> contact</a>
     </nav>
   </div>
 </div>
@@ -233,7 +234,7 @@
         <span class="prompt"><span class="path">~</span>$</span>
         <input id="cmdInput" type="text" placeholder="say something… try 'help'" autocomplete="off" spellcheck="false">
       </div>
-      <div class="console-hint">try: projects · skills · experience · about · contact · hi · hire me</div>
+      <div class="console-hint">try: projects · skills · experience · contact · hi · hire me</div>
       <div class="console-out" id="cmdOut"></div>
     </div>
   </section>
@@ -257,12 +258,6 @@
     <div id="expList" style="margin-top:14px;"></div>
   </section>
 
-  <!-- ================= ABOUT ================= -->
-  <section id="about">
-    <div class="line"><span class="prompt"><span class="path">~</span>$</span><span class="cmd">cat about.txt</span></div>
-    <div class="about-text" id="aboutText" style="margin-top:14px;"></div>
-  </section>
-
   <!-- ================= CONTACT ================= -->
   <section id="contact" style="border-bottom:none;">
     <div class="line"><span class="prompt"><span class="path">~</span>$</span><span class="cmd">mail -s "let's talk"</span></div>
@@ -273,20 +268,11 @@
 </div>
 
 <script>
-/* ================================================================
-   EDIT ME — this is the only part of the file you should need to
-   touch. Replace the placeholder strings below with your real
-   info. Everything renders itself from this object.
-
-   - `comment` fields are optional. They render as italic amber
-     "// ..." lines — a nice place for the PPE-flavored angle on a
-     technical project (ethics, policy, market design, etc).
-   - Leave any field as "" to hide it.
-================================================================ */
+  
 const DATA = {
   name: "Riya Piryani",
   handle: "riya",
-  tagline: "CS + Politics, Philosophy & Economics, business minor — I test software, teach discrete math, and still have opinions about housing policy.",
+  tagline: "Aspiring developer & product manager studying CS at Northeastern — building software, thinking in data, minoring in business.",
   location: "Boston, MA",
 
   links: [
@@ -302,6 +288,18 @@ const DATA = {
       stack: ["Swift", "SwiftUI", "Node.js"],
       body: "Built from scratch to help friend groups actually agree on a trip — coordinating destinations, availability, and activities in one place. Custom UI throughout: animated vote cards, an interactive availability grid that auto-detects the best overlap window, and a multi-step trip creation and invite flow. Replaced the native iOS tab bar with a custom animated pill-style nav bar using GeometryReader and spring physics, with haptic feedback woven in for a polished, native feel.",
       comment: "turns out planning a group trip is a decentralized decision problem wearing a friendly UI.",
+      link: "",
+      linkLabel: "",
+      repo: "soon",
+      repoLabel: "source"
+    },
+    {
+      name: "news-bias-detector",
+      perm: "✦",
+      desc: "Using AI to help surface bias in how news articles are written.",
+      stack: ["Python", "NLP", "Model training", "Pandas"],
+      body: "Training a model directly on labeled news data — rather than calling an external API — to flag loaded language and framing, and score coverage of the same story side by side so patterns in tone and emphasis are easier to spot at a glance.",
+      comment: "the hard part isn't detecting bias — it's agreeing on the baseline you're measuring it against.",
       link: "",
       linkLabel: "",
       repo: "soon",
@@ -336,7 +334,7 @@ const DATA = {
   skills: {
     languages: ["Java", "Python", "C++", "R", "SQL", "Racket", "JavaScript", "HTML/CSS"],
     frameworks_tools: ["SwiftUI", "Node.js", "Figma", "Adobe", "MS Office", "Canva"],
-    ppe_lenses: ["Public policy", "Political theory", "Microeconomics"],
+    ppe_lenses: ["Data analysis", "Public policy", "Microeconomics"],
     business: ["Content design", "Writing", "Communication", "Teamwork", "Attention to detail"]
   },
 
@@ -346,13 +344,6 @@ const DATA = {
     { date: "2024–25 · Sept–Dec", role: "Accessibility Note Taker", org: "Northeastern University", desc: "Produced accessible lecture notes for Algorithms & Data and American Government, for students with academic accommodations." },
     { date: "2024–25 · Sept–Dec", role: "Aquatics Instructor & Guard", org: "YMCA", desc: "Taught all swim program levels and kept the pool deck safe for everyone in it." },
     { date: "2022–24", role: "Programming Captain", org: "FIRST Robotics", desc: "Led software for the team's robotics control systems in Java and mentored junior programmers." }
-  ],
-
-  about: [
-    "I'm a CS + Politics, Philosophy, and Economics major at Northeastern University (class of 2027), with a minor in Business Administration — currently on the Dean's List.",
-    "On the CS side: I like the parts of software that are invisible when done right — testing, accessibility, interfaces that feel obvious. Most recently I was a QA Engineer Co-op at Notability, hunting down bugs before anyone else could.",
-    "On the PPE side: my housing-policy research comparing Toronto, Hong Kong, and Singapore is the clearest example — I like questions about who a system leaves out, and why.",
-    "Outside of that: I teach discrete math, take notes for students who need them, coach robotics kids through their first lines of Java, and spend a lot of summers as a swim instructor and lifeguard."
   ],
 
   contact: [
@@ -489,10 +480,6 @@ DATA.experience.forEach(x => {
   `));
 });
 
-// ---- about ----
-const aboutEl = document.getElementById('aboutText');
-DATA.about.forEach(p => aboutEl.appendChild(el(`<p>${p}</p>`)));
-
 // ---- contact ----
 const contactEl = document.getElementById('contactList');
 DATA.contact.forEach(c => {
@@ -517,7 +504,6 @@ const routes = {
   projects: '#projects', project: '#projects', proj: '#projects', ls: '#projects',
   skills: '#skills', skill: '#skills',
   experience: '#experience', exp: '#experience', history: '#experience',
-  about: '#about', bio: '#about',
   contact: '#contact', mail: '#contact'
 };
 
@@ -529,7 +515,7 @@ function handleCommand(raw){
   if(lower === 'help'){
     printOut([
       "here's what you can try:",
-      '&nbsp;&nbsp;projects · skills · experience · about · contact',
+      '&nbsp;&nbsp;projects · skills · experience · contact',
       '&nbsp;&nbsp;hi · clear · hire me'
     ]);
     return;
@@ -538,7 +524,7 @@ function handleCommand(raw){
     cmdOut.classList.remove('show'); cmdOut.innerHTML=''; return;
   }
   if(lower === 'hi' || lower === 'whoami' || lower === 'hello'){
-    printOut([`hi, I'm ${DATA.handle} — CS + PPE, business minor. probably somewhere between a codebase and a philosophy reading.`]);
+    printOut([`hi, I'm ${DATA.handle} — aspiring developer & product manager studying CS. probably testing something or teaching discrete math.`]);
     return;
   }
   if(lower === 'hire me' || lower === 'sudo hire me'){
@@ -548,7 +534,6 @@ function handleCommand(raw){
   }
   if(lower.startsWith('cat ')){
     const target = lower.replace('cat ', '').trim();
-    if(target.includes('about')){ printOut(['opening about.txt…']); window.location.hash = '#about'; return; }
     if(target.includes('skill')){ printOut(['opening skills.json…']); window.location.hash = '#skills'; return; }
   }
   if(routes[lower]){

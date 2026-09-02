@@ -9,7 +9,6 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 <style>
 
-
   :root{
     --bg: #12140f;
     --bg-raised: #1c1f17;
@@ -263,7 +262,16 @@
 </div>
 
 <script>
-  
+/* ================================================================
+   EDIT ME — this is the only part of the file you should need to
+   touch. Replace the placeholder strings below with your real
+   info. Everything renders itself from this object.
+
+   - `comment` fields are optional. They render as italic amber
+     "// ..." lines — a nice place for the PPE-flavored angle on a
+     technical project (ethics, policy, market design, etc).
+   - Leave any field as "" to hide it.
+================================================================ */
 const DATA = {
   name: "Riya Piryani",
   handle: "riya",
@@ -291,14 +299,14 @@ const DATA = {
     {
       name: "news-bias-detector",
       perm: "✦",
-      desc: "Using AI to help surface bias in how news articles are written.",
-      stack: ["Python", "NLP", "Model training", "Pandas"],
-      body: "Training a model directly on labeled news data — rather than calling an external API — to flag loaded language and framing, and score coverage of the same story side by side so patterns in tone and emphasis are easier to spot at a glance.",
-      comment: "the hard part isn't detecting bias — it's agreeing on the baseline you're measuring it against.",
-      link: "",
-      linkLabel: "",
-      repo: "soon",
-      repoLabel: "source"
+      desc: "A classical ML system that predicts political bias in news articles — left, center, or right.",
+      stack: ["Python", "scikit-learn", "TF-IDF", "VADER sentiment", "SVM"],
+      body: "Predicts an article's political lean and produces a continuous bias score from -1 to +1, using TF-IDF and sentiment features feeding a Linear SVM (compared against a Naive Bayes baseline) on the 37,554-article Article-Bias-Prediction dataset. The most interesting result: cross-validation macro-F1 hit 0.788, but dropped to 0.511 when tested on outlets the model had never seen — evidence it was partly learning an outlet's voice rather than bias itself.",
+      comment: "the model was great at recognizing an outlet's voice — a lot shakier at recognizing bias that traveled between outlets.",
+      link: "https://docs.google.com/document/d/1X-tvVdvo4jhWStrxhOK0ID9OiAMJCwgOAMwldIKX_ec/edit?usp=sharing",
+      linkLabel: "read paper",
+      repo: "",
+      repoLabel: ""
     },
     {
       name: "fair-housing",

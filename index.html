@@ -9,7 +9,6 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 <style>
 
-
   :root{
     --bg: #0d0b09;
     --bg-raised: #171310;
@@ -272,7 +271,7 @@ const DATA = {
   links: [
     { label: "GitHub", href: "https://github.com/riyapiryani" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/riya-piryani/" },
-    { label: "Email", href: "mailto:riyapiryani@gmail.com" },
+    { label: "Email", href: "mailto:riyapiryani@gmail.com" }
   ],
 
   projects: [
@@ -281,7 +280,7 @@ const DATA = {
       perm: "✦",
       desc: "A calmer way to manage your brain — a native iOS app for ADHD and severe procrastination.",
       stack: ["Swift", "SwiftUI", "Observation framework"],
-      body: "Designed and built end-to-end — concept, UX flows, a full custom design system, and a working SwiftUI codebase. Capture a thought the instant it happens and let the app auto-sort it into Do Now / Later / Remember / Maybe. The signature feature is distraction recovery: wander off mid-task, then pick back up exactly where you left off, with zero guilt-based language anywhere in the UI. Built around a single centralized state model using SwiftUI's Observation framework, with a custom icon and design system to match — no third-party dependencies.",
+      body: "Designed and built end-to-end — concept, UX flows, a full custom design system, and a working SwiftUI codebase. Capture a thought the instant it happens and let the app auto-sort it into Do Now / Later / Remember / Maybe. The signature feature is distraction recovery: wander off mid-task, then pick back up exactly where you left off, with zero guilt-based language anywhere in the UI. Built around a single centralized state model using SwiftUI's Observation framework, with a custom icon and design system to match, zero third-party dependencies — currently prepping for a TestFlight release.",
       comment: "the best feature isn't a feature — it's the total absence of guilt-based language in the whole UI.",
       link: "",
       linkLabel: "",
@@ -339,22 +338,25 @@ const DATA = {
   ],
 
   skills: {
-    languages: ["Java", "Python", "C++", "R", "SQL", "Racket", "JavaScript", "HTML/CSS"],
-    frameworks_tools: ["SwiftUI", "Node.js", "Figma", "Adobe", "MS Office", "Canva"],
+    languages: ["Java", "Python", "C++", "Swift", "SQL", "JavaScript", "TypeScript", "R", "HTML/CSS", "Racket"],
+    frameworks_tools: ["React", "Next.js", "TailwindCSS", "SwiftUI", "Node.js", "Prisma", "PostgreSQL", "Supabase", "Docker", "XCUI Testing", "Pandas", "NumPy", "scikit-learn", "Git/GitHub", "CircleCI", "Linear", "Vercel", "Figma"],
+    concepts: ["Data Structures & Algorithms", "OOP", "Machine Learning", "NLP", "UI/UX"],
     ppe_lenses: ["Data analysis", "Public policy", "Microeconomics"],
     business: ["Content design", "Writing", "Communication", "Teamwork", "Attention to detail"]
   },
 
   experience: [
-    { date: "2026 · Jan–Jun", role: "Software QA Engineer Co-op", org: "Notability", desc: "Diagnosed software defects, built automated UI and end-to-end tests, and streamlined regression testing across releases." },
-    { date: "2025 · Aug–Dec", role: "Teaching Assistant, Discrete Structures", org: "Northeastern University", desc: "Ran weekly office hours and recitations for 100+ students; graded homework, quizzes, and exams." },
-    { date: "2024–25 · Sept–Dec", role: "Accessibility Note Taker", org: "Northeastern University", desc: "Produced accessible lecture notes for Algorithms & Data and American Government, for students with academic accommodations." },
-    { date: "2024–25 · Sept–Dec", role: "Aquatics Instructor & Guard", org: "YMCA", desc: "Taught all swim program levels and kept the pool deck safe for everyone in it." },
-    { date: "2022–24", role: "Programming Captain", org: "FIRST Robotics", desc: "Led software for the team's robotics control systems in Java and mentored junior programmers." }
+    { date: "2026 · Sept–Present", role: "Full-Stack Software Engineer", org: "Northeastern Student Government Association", desc: "Building SGA's internal CMS with Next.js, React, and Supabase." },
+    { date: "2026 · Jan–Jun", role: "Software Engineer Co-op", org: "Notability (Gingerlabs)", desc: "Shipped a math-solver feature and raised E2E test coverage by 50%+." },
+    { date: "2025 · Aug–Present", role: "Teaching Assistant, Discrete Structures", org: "Northeastern University", desc: "Weekly recitations and office hours for 100+ students." },
+    { date: "2024–25 · Sept–Dec", role: "Accessibility Note Taker", org: "Northeastern University", desc: "Lecture notes for students with academic accommodations." },
+    { date: "2024–25 · Sept–Dec", role: "Aquatics Instructor & Guard", org: "YMCA", desc: "Taught swim lessons and kept the pool deck safe." },
+    { date: "2022–24", role: "Programming Captain", org: "FIRST Robotics", desc: "Led robotics software and mentored junior programmers." }
   ],
 
   contact: [
     { label: "email", value: "riyapiryani@gmail.com", href: "mailto:riyapiryani@gmail.com" },
+    { label: "github", value: "github.com/riyapiryani", href: "https://github.com/riyapiryani" },
     { label: "linkedin", value: "linkedin.com/in/riya-piryani", href: "https://www.linkedin.com/in/riya-piryani/" }
   ],
 
@@ -362,7 +364,7 @@ const DATA = {
 };
 
 /* ================================================================
-   Rendering — you shouldn't need to edit below this line.
+   Rendering
 ================================================================ */
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -483,6 +485,7 @@ sj.innerHTML = `
   <span class="brace">{</span>
   ${jsonGroup('languages', DATA.skills.languages)}
   ${jsonGroup('frameworks_tools', DATA.skills.frameworks_tools)}
+  ${jsonGroup('concepts', DATA.skills.concepts)}
   ${jsonGroup('ppe_lenses', DATA.skills.ppe_lenses)}
   ${jsonGroup('business', DATA.skills.business)}
   <span class="brace">}</span>
